@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-stone-950 text-stone-100;
+    font-family: 'Outfit', sans-serif;
+  }
+  
+  body {
+    @apply antialiased;
+  }
+
+  * {
+    @apply border-stone-800;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-brand text-stone-950 font-body font-medium tracking-widest text-xs uppercase px-8 py-4 transition-all duration-300 hover:bg-brand-light disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply border border-stone-600 text-stone-300 font-body font-medium tracking-widest text-xs uppercase px-8 py-4 transition-all duration-300 hover:border-brand hover:text-brand;
+  }
+
+  .btn-ghost {
+    @apply text-stone-400 font-body text-xs tracking-widest uppercase transition-colors hover:text-brand;
+  }
+
+  .section-label {
+    @apply text-brand font-body text-xs tracking-[0.2em] uppercase;
+  }
+
+  .display-heading {
+    @apply font-display text-stone-100 leading-none;
+  }
+
+  .product-card {
+    @apply relative overflow-hidden bg-stone-900 cursor-pointer;
+  }
+
+  .input-field {
+    @apply w-full bg-stone-900 border border-stone-700 text-stone-100 placeholder-stone-600 px-4 py-3 font-body text-sm focus:outline-none focus:border-brand transition-colors;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0c0a09; }
+::-webkit-scrollbar-thumb { background: #44403c; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #c8a96e; }
+
+/* Smooth transitions for route changes */
+.page-enter-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+.page-leave-active { transition: opacity 0.2s ease; }
+.page-enter-from { opacity: 0; transform: translateY(12px); }
+.page-leave-to { opacity: 0; }
