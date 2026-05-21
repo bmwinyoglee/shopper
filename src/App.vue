@@ -17,6 +17,9 @@
             <RouterLink to="/orders" class="text-xs tracking-widest uppercase font-body text-stone-400 hover:text-stone-100 transition-colors" active-class="text-brand">
               Orders
             </RouterLink>
+            <RouterLink to="/admin" class="text-xs tracking-widest uppercase font-body text-stone-600 hover:text-brand transition-colors border border-stone-800 px-3 py-1 hover:border-brand/40">
+              Admin
+            </RouterLink>
           </div>
 
           <!-- Cart icon -->
@@ -64,14 +67,20 @@ import { onMounted, watch } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useCartStore } from '@/stores/cartStore'
 import { useOrdersStore } from '@/stores/ordersStore'
+import { useProductsStore } from '@/stores/productsStore'
+import { useAdminStore } from '@/stores/adminStore'
 import CartDrawer from '@/components/CartDrawer.vue'
 
 const cart = useCartStore()
 const orders = useOrdersStore()
+const productsStore = useProductsStore()
+const adminStore = useAdminStore()
 
 onMounted(() => {
   cart.loadFromStorage()
   orders.loadFromStorage()
+  productsStore.loadFromStorage()
+  adminStore.loadFromStorage()
 })
 
 watch(() => cart.items, () => cart.saveToStorage(), { deep: true })

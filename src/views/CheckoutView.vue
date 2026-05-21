@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Success Screen -->
+    <!-- ── SUCCESS SCREEN ── -->
     <Transition name="fade">
       <div v-if="orderPlaced && placedOrder" class="text-center py-20 animate-slide-up">
         <div class="w-20 h-20 bg-brand/10 border border-brand/30 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -10,10 +10,13 @@
         </div>
         <p class="section-label mb-3">Order Confirmed</p>
         <h1 class="display-heading text-5xl mb-4">Thank You!</h1>
-        <p class="font-body text-stone-400 text-lg mb-2">Order <span class="text-brand font-medium">{{ placedOrder.id }}</span> has been placed</p>
-        <p class="font-body text-stone-500 text-sm mb-10">A confirmation would be sent to {{ placedOrder.customer.email }}</p>
+        <p class="font-body text-stone-400 text-lg mb-2">
+          Order <span class="text-brand font-medium">{{ placedOrder.id }}</span> has been placed
+        </p>
+        <p class="font-body text-stone-500 text-sm mb-10">
+          We will be in touch at {{ placedOrder.customer.email }}
+        </p>
 
-        <!-- Mini order recap -->
         <div class="max-w-md mx-auto bg-stone-900 border border-stone-800 p-6 text-left mb-8">
           <h3 class="font-display text-lg mb-4 pb-3 border-b border-stone-800">Order Summary</h3>
           <div class="space-y-2 mb-4">
@@ -35,14 +38,13 @@
       </div>
     </Transition>
 
-    <!-- Checkout Form -->
+    <!-- ── CHECKOUT FORM ── -->
     <div v-if="!orderPlaced">
       <div class="mb-10">
         <p class="section-label mb-2">Almost There</p>
         <h1 class="display-heading text-5xl">Checkout</h1>
       </div>
 
-      <!-- Empty cart redirect notice -->
       <div v-if="cart.items.length === 0" class="text-center py-16">
         <p class="font-display text-2xl text-stone-400 mb-6">Your cart is empty</p>
         <RouterLink to="/" class="btn-primary">Browse Collection</RouterLink>
@@ -50,8 +52,8 @@
 
       <div v-else class="grid lg:grid-cols-3 gap-10">
         <!-- Form -->
-        <div class="lg:col-span-2 space-y-8">
-          <!-- Contact -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Contact info -->
           <div class="bg-stone-900 border border-stone-800 p-6">
             <h2 class="font-display text-xl mb-5">Contact Information</h2>
             <div class="grid sm:grid-cols-2 gap-4">
@@ -65,84 +67,48 @@
                 <input v-model="form.lastName" type="text" placeholder="Mensah" class="input-field" :class="{ 'border-red-500': errors.lastName }" />
                 <p v-if="errors.lastName" class="text-red-400 text-xs mt-1 font-body">{{ errors.lastName }}</p>
               </div>
-              <div>
+              <div class="sm:col-span-2">
                 <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">Email *</label>
                 <input v-model="form.email" type="email" placeholder="ama@example.com" class="input-field" :class="{ 'border-red-500': errors.email }" />
                 <p v-if="errors.email" class="text-red-400 text-xs mt-1 font-body">{{ errors.email }}</p>
               </div>
-              <div>
+              <div class="sm:col-span-2">
                 <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">Phone</label>
                 <input v-model="form.phone" type="tel" placeholder="+233 24 000 0000" class="input-field" />
               </div>
             </div>
           </div>
 
-          <!-- Shipping -->
+          <!-- Mock payment -->
           <div class="bg-stone-900 border border-stone-800 p-6">
-            <h2 class="font-display text-xl mb-5">Shipping Address</h2>
-            <div class="space-y-4">
-              <div>
-                <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">Street Address *</label>
-                <input v-model="form.address" type="text" placeholder="123 Independence Ave" class="input-field" :class="{ 'border-red-500': errors.address }" />
-                <p v-if="errors.address" class="text-red-400 text-xs mt-1 font-body">{{ errors.address }}</p>
-              </div>
-              <div class="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">City *</label>
-                  <input v-model="form.city" type="text" placeholder="Accra" class="input-field" :class="{ 'border-red-500': errors.city }" />
-                  <p v-if="errors.city" class="text-red-400 text-xs mt-1 font-body">{{ errors.city }}</p>
-                </div>
-                <div>
-                  <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">ZIP / Postal Code</label>
-                  <input v-model="form.zip" type="text" placeholder="00233" class="input-field" />
-                </div>
-              </div>
-              <div>
-                <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">Country *</label>
-                <select v-model="form.country" class="input-field" :class="{ 'border-red-500': errors.country }">
-                  <option value="">Select country</option>
-                  <option value="GH">Ghana</option>
-                  <option value="NG">Nigeria</option>
-                  <option value="KE">Kenya</option>
-                  <option value="ZA">South Africa</option>
-                  <option value="US">United States</option>
-                  <option value="GB">United Kingdom</option>
-                  <option value="FR">France</option>
-                  <option value="DE">Germany</option>
-                </select>
-                <p v-if="errors.country" class="text-red-400 text-xs mt-1 font-body">{{ errors.country }}</p>
-              </div>
+            <div class="flex items-center justify-between mb-5">
+              <h2 class="font-display text-xl">Payment</h2>
+              <span class="text-[10px] tracking-widest uppercase text-stone-600 font-body border border-stone-700 px-2 py-1">Demo Only</span>
             </div>
-          </div>
-
-          <!-- Payment (mock) -->
-          <div class="bg-stone-900 border border-stone-800 p-6">
-            <h2 class="font-display text-xl mb-2">Payment</h2>
-            <p class="text-xs text-stone-600 font-body mb-5 tracking-widest uppercase">Demo — No real charges</p>
             <div class="space-y-4">
               <div>
                 <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">Card Number</label>
-                <input type="text" value="4242 4242 4242 4242" readonly class="input-field opacity-60 cursor-not-allowed" />
+                <input type="text" value="4242 4242 4242 4242" readonly class="input-field opacity-50 cursor-not-allowed" />
               </div>
               <div class="grid grid-cols-2 gap-4">
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">Expiry</label>
-                  <input type="text" value="12/28" readonly class="input-field opacity-60 cursor-not-allowed" />
+                  <input type="text" value="12/28" readonly class="input-field opacity-50 cursor-not-allowed" />
                 </div>
                 <div>
                   <label class="block text-xs tracking-widest uppercase text-stone-500 font-body mb-2">CVV</label>
-                  <input type="text" value="•••" readonly class="input-field opacity-60 cursor-not-allowed" />
+                  <input type="text" value="•••" readonly class="input-field opacity-50 cursor-not-allowed" />
                 </div>
               </div>
             </div>
             <div class="mt-4 flex items-center gap-2 text-stone-600">
               <span>🔒</span>
-              <span class="text-xs font-body">This is a demo. No real payment will be processed.</span>
+              <span class="text-xs font-body">No real payment will be processed — this is a demo.</span>
             </div>
           </div>
         </div>
 
-        <!-- Order Summary -->
+        <!-- Order summary sidebar -->
         <div>
           <div class="bg-stone-900 border border-stone-800 p-6 sticky top-24">
             <h2 class="font-display text-xl mb-5 pb-4 border-b border-stone-800">Your Order</h2>
@@ -162,7 +128,9 @@
               </div>
               <div class="flex justify-between text-sm font-body text-stone-400">
                 <span>Shipping</span>
-                <span :class="cart.shipping === 0 ? 'text-green-400' : ''">{{ cart.shipping === 0 ? 'Free' : `$${cart.shipping}` }}</span>
+                <span :class="cart.shipping === 0 ? 'text-green-400' : ''">
+                  {{ cart.shipping === 0 ? 'Free' : `$${cart.shipping}` }}
+                </span>
               </div>
               <div class="flex justify-between font-display text-xl pt-3 border-t border-stone-800 mt-2">
                 <span>Total</span><span class="text-brand">${{ cart.total.toLocaleString() }}</span>
@@ -191,7 +159,7 @@ import { ref, reactive } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useCartStore } from '@/stores/cartStore'
 import { useOrdersStore } from '@/stores/ordersStore'
-import type { Order, CustomerInfo } from '@/types'
+import type { Order } from '@/types'
 
 const cart = useCartStore()
 const ordersStore = useOrdersStore()
@@ -200,12 +168,12 @@ const orderPlaced = ref(false)
 const placing = ref(false)
 const placedOrder = ref<Order | null>(null)
 
-const form = reactive<CustomerInfo>({
+const form = reactive({
   firstName: '', lastName: '', email: '', phone: '',
   address: '', city: '', country: '', zip: '',
 })
 
-const errors = reactive<Partial<Record<keyof CustomerInfo, string>>>({})
+const errors = reactive<Partial<Record<string, string>>>({})
 
 function validate(): boolean {
   Object.keys(errors).forEach(k => delete (errors as any)[k])
@@ -213,16 +181,13 @@ function validate(): boolean {
   if (!form.firstName) { errors.firstName = 'Required'; valid = false }
   if (!form.lastName) { errors.lastName = 'Required'; valid = false }
   if (!form.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) { errors.email = 'Valid email required'; valid = false }
-  if (!form.address) { errors.address = 'Required'; valid = false }
-  if (!form.city) { errors.city = 'Required'; valid = false }
-  if (!form.country) { errors.country = 'Required'; valid = false }
   return valid
 }
 
 async function handlePlaceOrder() {
   if (!validate()) return
   placing.value = true
-  await new Promise(r => setTimeout(r, 1500)) // Simulate network delay
+  await new Promise(r => setTimeout(r, 1400))
   const order = ordersStore.placeOrder(cart.items, { ...form }, cart.subtotal, cart.shipping)
   placedOrder.value = order
   cart.clearCart()

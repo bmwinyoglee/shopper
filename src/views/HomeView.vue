@@ -26,16 +26,14 @@
 
     <!-- Collection Section -->
     <section id="collection" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-      <!-- Section header -->
       <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mb-10">
         <div>
           <p class="section-label mb-2">The Edit</p>
           <h2 class="display-heading text-4xl">All Products</h2>
         </div>
-        <!-- Category filter -->
         <div class="flex flex-wrap gap-2">
           <button
-            v-for="cat in categories"
+            v-for="cat in productsStore.categories"
             :key="cat"
             @click="selectedCategory = cat"
             :class="[
@@ -50,7 +48,6 @@
         </div>
       </div>
 
-      <!-- Product grid -->
       <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         <ProductCard
           v-for="(product, i) in filteredProducts"
@@ -65,7 +62,6 @@
       </div>
     </section>
 
-    <!-- Footer strip -->
     <footer class="border-t border-stone-800 mt-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
         <span class="font-display text-xl tracking-[0.15em] text-stone-400">MAISON</span>
@@ -77,14 +73,15 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { products, categories } from '@/data/products'
+import { useProductsStore } from '@/stores/productsStore'
 import ProductCard from '@/components/ProductCard.vue'
 
+const productsStore = useProductsStore()
 const selectedCategory = ref('All')
 
 const filteredProducts = computed(() =>
   selectedCategory.value === 'All'
-    ? products
-    : products.filter(p => p.category === selectedCategory.value)
+    ? productsStore.products
+    : productsStore.products.filter(p => p.category === selectedCategory.value)
 )
 </script>
