@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-const ADMIN_PASSWORD = 'maison2025' // change this
+const ADMIN_PASSWORD = 'Alpha123' // change this
 
 export const useAdminStore = defineStore('admin', () => {
   const isAuthenticated = ref(false)
